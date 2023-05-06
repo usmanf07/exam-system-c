@@ -9,16 +9,277 @@ class Myquestion;
 class Question;
 class Quiz;
 
+
+class Question {
+protected:
+	
+	string statement;
+public:
+	Question()
+	{
+		statement = "";
+	}
+
+public:
+
+
+	virtual void LoadQuestion(ifstream& fin) {
+
+		cout << "Loading Question";
+	}
+	virtual void printDetail()
+	{
+		cout << "Statement of Question " << statement;
+		cout << endl;
+		
+	}
+};
+
+class MCQs : public Question {
+
+
+	string options[4];
+	int correctOption;
+
+
+public:
+	void printDetail()
+	{
+		Question::printDetail();
+		cout << "Options for this Question are ";
+		for (int i = 0; i < 4; i++)
+		{
+			cout << options[i] << endl;
+
+		}
+	}
+	void LoadQuestion(ifstream& fin) {
+
+		string temp;
+		getline(fin, temp);
+		int current = 0;
+		while (temp != "")
+		{
+			int position = temp.find("option");
+			if (position == -1)
+			{
+				statement = statement + temp + " ";
+			}
+			else {
+
+
+				options[current] = temp;
+				current++;
+
+
+			}
+			getline(fin, temp);
+
+
+		}
+
+
+
+
+	}
+
+};
+class TFalse : public Question {
+	string options[2];
+	int correctOption;
+
+public:
+	void printDetail()
+	{
+		Question::printDetail();
+		cout << "Options for this Question are ";
+		for (int i = 0; i < 2; i++)
+		{
+			cout << options[i] << endl;
+
+		}
+	}
+
+	void LoadQuestion(ifstream& fin) {
+		string temp;
+		getline(fin, temp);
+		int current = 0;
+		while (temp != "")
+		{
+			int position = temp.find("option");
+			if (position == -1)
+			{
+				statement = statement + temp + " ";
+			}
+			else {
+
+
+				options[current] = temp;
+				current++;
+
+
+			}
+			getline(fin, temp);
+
+
+		}
+
+
+
+
+	}
+
+
+};
+class Subjective : public Question {
+
+public:
+	void LoadQuestion(ifstream& fin) {
+
+		string temp;
+		getline(fin, temp);
+
+		while (temp != "")
+		{
+			statement = statement + temp + " ";
+			getline(fin, temp);
+
+
+		}
+
+
+
+
+	}
+
+
+};
+
+
+class Topic {
+	string name;
+	Question** AllQuestions;
+	int count;
+public:
+
+
+
+
+	Topic()
+	{
+		AllQuestions = new Question * [50];
+
+		count = 0;
+
+	}
+	 void setName(string n)
+	{
+		name = n;
+
+	}
+
+
+	 string Load(ifstream& Input)
+	 {
+		 Question* temp1;
+		 string temp;
+		while (temp != "a5380ee" && !Input.eof())
+		 {
+			 if (temp == "2efcde9")
+			 {
+				 temp1 = new MCQs();
+				 temp1->LoadQuestion(Input);
+				 AllQuestions[count] = temp1;
+				 count++;
+			 }
+			 if (temp == "b94d27b")
+			 {
+				 temp1 = new TFalse();
+				 temp1->LoadQuestion(Input);	
+				 AllQuestions[count] = temp1;
+				 count++;
+			 }
+
+			 if (temp == "88f7ace")
+			 {
+				 temp1 = new Subjective();
+				 temp1->LoadQuestion(Input);
+				 AllQuestions[count] = temp1;
+				 count++;
+			 }
+
+			 getline(Input, temp);
+
+
+		 }
+		return temp;
+
+	 }
+	
+	 void printInfo()
+	 {
+		 cout << "name of topic is" << name << endl;
+		 for (int i = 0; i < count; i++)
+		 {
+			 AllQuestions[i]->printDetail();
+
+		 }
+
+
+
+	}
+};
 class Course {
 
 private:
 	string name;
 	string courseId;
 	Quiz** quiz;
+	Topic** allTopics;
 	int noQuizzes;
+	int tTopics;
 
 public:
 
+	Course(){
+
+		allTopics = new Topic * [40];
+		tTopics = 0;
+
+
+
+
+
+	}
+
+	void LoadAllTopics(string filename)
+	{
+		string temp;
+		Topic* tempTopic;
+		ifstream Input(filename);
+		if (Input.is_open())
+		{
+
+			getline(Input, temp);
+			while (!Input.eof())
+			{
+				
+				if (temp == "a5380ee")
+				{
+					getline(Input, temp);
+					tempTopic = new Topic();
+					tempTopic->setName(temp);
+					temp=  tempTopic->Load(Input);
+
+					allTopics[tTopics++] = tempTopic;
+
+				}
+		
+			}
+		}
+
+
+	}
 	void setName(string n)
 	{
 		name = n;
@@ -31,6 +292,17 @@ public:
 	void printInfo()
 	{
 		cout << name << " " << courseId << endl;
+		for (int i = 0; i < tTopics; i++)
+		{
+
+			allTopics[i]->printInfo();
+
+		}
+
+
+
+
+
 	}
 };
 
@@ -423,242 +695,95 @@ public:
 	}
 };
 
-class Question {
-protected:
-	string topic;
-	string statement;
-public:
-	Question()
-	{
-		statement = "";
-	}
 
-public:
 
-	void setTopic(string t)
-	{
-		topic = t;
-	}
-	virtual void LoadQuestion(ifstream& fin) {
 
-		cout << "Loading Question";
-	}
-	virtual void printDetail()
-	{
-		cout << "Statement of Question " << statement;
-		cout << endl;
-		cout << "Topic of this Question " << topic;
-		cout << endl;
-	}
-};
 
-class MCQs : public Question {
-
-
-	string options[4];
-	int correctOption;
-
-
-public:
-	void printDetail()
-	{
-		Question::printDetail();
-		cout << "Options for this Question are ";
-		for (int i = 0; i < 4; i++)
-		{
-			cout << options[i] << endl;
-
-		}
-	}
-	void LoadQuestion(ifstream& fin) {
-
-		string temp;
-		getline(fin, temp);
-		int current = 0;
-		while (temp != "")
-		{
-			int position = temp.find("option");
-			if (position == -1)
-			{
-				statement = statement + temp + " ";
-			}
-			else {
-
-
-				options[current] = temp;
-				current++;
-
-
-			}
-			getline(fin, temp);
-
-
-		}
-
-
-
-
-	}
-
-};
-class TFalse : public Question {
-	string options[2];
-	int correctOption;
-
-public:
-	void printDetail()
-	{
-		Question::printDetail();
-		cout << "Options for this Question are ";
-		for (int i = 0; i < 2; i++)
-		{
-			cout << options[i] << endl;
-
-		}
-	}
-
-	void LoadQuestion(ifstream& fin) {
-		string temp;
-		getline(fin, temp);
-		int current = 0;
-		while (temp != "")
-		{
-			int position = temp.find("option");
-			if (position == -1)
-			{
-				statement = statement + temp + " ";
-			}
-			else {
-
-
-				options[current] = temp;
-				current++;
-
-
-			}
-			getline(fin, temp);
-
-
-		}
-
-
-
-
-	}
-
-
-};
-class Subjective : public Question {
-
-public:
-	void LoadQuestion(ifstream& fin) {
-
-		string temp;
-		getline(fin, temp);
-
-		while (temp != "")
-		{
-			statement = statement + temp + " ";
-			getline(fin, temp);
-
-
-		}
-
-
-
-
-	}
-
-
-};
-
-
-
-
-class QuestionBank
-{
-	Question** AllQuestions;
-
-	int count;
-
-public:
-	QuestionBank()
-	{
-		AllQuestions = new Question * [100];
-		count = 0;
-	}
-	void MakeBank(string filename)
-	{
-		ifstream Input(filename);	
-		string temp;
-		string topic;
-		Question* temp1;
-		if (Input.is_open())
-		{
-
-
-			while (!Input.eof())
-			{
-				getline(Input, temp);
-
-
-				if (temp == "a5380ee")
-				{
-					getline(Input, topic);
-				}
-				if (temp == "2efcde9")
-				{
-					temp1 = new MCQs();
-					temp1->LoadQuestion(Input);
-					temp1->setTopic(topic);
-					AllQuestions[count] = temp1;
-
-					count++;
-				}
-				if (temp == "b94d27b")
-				{
-					temp1 = new TFalse();
-					temp1->LoadQuestion(Input);
-					temp1->setTopic(topic);
-					AllQuestions[count] = temp1;
-					count++;
-				}
-
-				if (temp == "88f7ace")
-				{
-					temp1 = new Subjective();
-					temp1->LoadQuestion(Input);
-					temp1->setTopic(topic);
-					AllQuestions[count] = temp1;
-					count++;
-				}
-
-			}
-
-
-			for (int i = 0; i < count; i++)
-			{
-				AllQuestions[i]->printDetail();
-				cout << endl;
-				cout << endl;
-			}
-		}
-		else {
-			cout << "Error Opening File";
-		}
-
-
-	}
-};
+//class QuestionBank
+//{
+//	Question** AllQuestions;
+//
+//	int count;
+//
+//public:
+//	QuestionBank()
+//	{
+//		AllQuestions = new Question * [100];
+//		count = 0;
+//	}
+//	void MakeBank(string filename)
+//	{
+//		ifstream Input(filename);	
+//		string temp;
+//		string topic;
+//		Question* temp1;
+//		if (Input.is_open())
+//		{
+//
+//
+//			while (!Input.eof())
+//			{
+//				getline(Input, temp);
+//
+//
+//				if (temp == "a5380ee")
+//				{
+//					getline(Input, topic);
+//				}
+//				if (temp == "2efcde9")
+//				{
+//					temp1 = new MCQs();
+//					temp1->LoadQuestion(Input);
+//					temp1->setTopic(topic);
+//					AllQuestions[count] = temp1;
+//
+//					count++;
+//				}
+//				if (temp == "b94d27b")
+//				{
+//					temp1 = new TFalse();
+//					temp1->LoadQuestion(Input);
+//					temp1->setTopic(topic);
+//					AllQuestions[count] = temp1;
+//					count++;
+//				}
+//
+//				if (temp == "88f7ace")
+//				{
+//					temp1 = new Subjective();
+//					temp1->LoadQuestion(Input);
+//					temp1->setTopic(topic);
+//					AllQuestions[count] = temp1;
+//					count++;
+//				}
+//
+//			}
+//
+//
+//			for (int i = 0; i < count; i++)
+//			{
+//				AllQuestions[i]->printDetail();
+//				cout << endl;
+//				cout << endl;
+//			}
+//		}
+//		else {
+//			cout << "Error Opening File";
+//		}
+//
+//
+//	}
+//};
 
 void main() {
 
-	System s;
-	s.loadData("teachers_list.csv", "courses_offering_list.csv");
+	//System s;
+	/*s.loadData("teachers_list.csv", "courses_offering_list.csv");
 	s.generateLogins();
-	s.login();
-
-
+	s.login();*/
+	Course Temp; 
+	Temp.LoadAllTopics("testbank.txt");
+	Temp.printInfo();
 	/*QuestionBank myquestions;
 	myquestions.MakeBank("testbank.txt");*/
 
