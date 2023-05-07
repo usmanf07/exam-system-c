@@ -1,0 +1,22 @@
+course: CS 407
+quiz: 80b2603
+1683502045
+40
+10
+4
+2efcde9
+What is the difference between structured and unstructured data? 2efcde9
+option: Structured data is organized and formatted while unstructured data is not
+option: Structured data is easy to analyze while unstructured data is not
+option: Structured data is small in volume while unstructured data is large
+option dabfac4: All of the above
+88f7ace
+Write 100 words essay on one of the following:Write 100 words essay on one of the following: 88f7ace
+2efcde9
+What is Hadoop? 2efcde9
+option dabfac4: An open-source software framework used for distributed storage and processing of big data.
+option: A cloud-based data storage service.
+option: A programming language used for data analysis.
+option: A relational database management system.
+88f7ace
+Explain the concept of MapReduce in Big Data Analytics. Provide an example of how MapReduce is used to process large amounts of data.88f7ace
