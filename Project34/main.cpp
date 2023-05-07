@@ -22,8 +22,8 @@ public:
 	void setName(string n)
 	{
 		name = n;
-
 	}
+
 	void setCode(string c)
 	{
 		courseId = c;
