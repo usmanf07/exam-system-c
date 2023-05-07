@@ -28,10 +28,12 @@ class Question {
 protected:
 	
 	string statement;
+	
 public:
 	Question()
 	{
 		statement = "";
+		
 	}
 
 public:
@@ -41,12 +43,20 @@ public:
 
 		cout << "Loading Question";
 	}
+
 	virtual void printDetail()
 	{
 		cout << "----------------------------------" << endl;
 		cout << "Question: " << statement<< endl;
-		
 	}
+
+	string getStatement()
+	{
+		return statement;
+	}
+
+	virtual string* getOption() = 0;
+	virtual int gettotalOptions() = 0;
 };
 
 class MCQs : public Question {
@@ -54,9 +64,22 @@ class MCQs : public Question {
 
 	string options[4];
 	int correctOption;
-
+	int totalOptions;
 
 public:
+	MCQs() :Question()
+	{
+		totalOptions = 0;
+	}
+	virtual int gettotalOptions()override
+	{
+		return totalOptions;
+	}
+
+	virtual string* getOption() override
+	{
+		return options;
+	}
 	void printDetail()
 	{
 		Question::printDetail();
@@ -91,7 +114,7 @@ public:
 
 		}
 
-
+		totalOptions = current - 1;
 
 
 	}
@@ -100,8 +123,20 @@ public:
 class TFalse : public Question {
 	string options[2];
 	int correctOption;
-
+	int totalOptions;
 public:
+	TFalse() :Question()
+	{
+		totalOptions = 0;
+	}
+	virtual string* getOption() override
+	{
+		return options;
+	}
+	virtual int gettotalOptions()override
+	{
+		return totalOptions;
+	}
 	void printDetail()
 	{
 		Question::printDetail();
@@ -133,12 +168,8 @@ public:
 			}
 			getline(fin, temp);
 
-
+			totalOptions = current - 1;
 		}
-
-
-
-
 	}
 
 
@@ -146,6 +177,10 @@ public:
 class Subjective : public Question {
 
 public:
+	virtual string* getOption() override
+	{
+		return NULL;
+	}
 	void LoadQuestion(ifstream& fin) {
 
 		string temp;
@@ -161,7 +196,10 @@ public:
 
 
 	}
-
+	virtual int gettotalOptions() override
+	{
+		return 0;
+	}
 
 };
 
@@ -242,6 +280,103 @@ public:
 		 return count;
 	}
 };
+
+class Quiz {
+private:
+	Question** questionList;
+	int numQuestions;
+	int totalTime;
+	int totalMarks;
+	time_t quizTime;
+
+public:
+	Quiz()
+	{
+		questionList = nullptr;
+		numQuestions = 0;
+		totalTime = 0;
+		totalMarks = 0;
+	}
+	
+	void generateQuiz(Topic** topics, int totalTopics, int marks, int totalQuestions, time_t quizTime, int maxTime)
+	{
+		this->totalTime = maxTime;
+		this->numQuestions = totalQuestions;
+		this->quizTime = quizTime;
+		this->totalMarks = numQuestions * marks;
+		Question** allQuestions = NULL;
+		int topicTotalQuestion = 0;
+		questionList = new Question * [numQuestions];
+
+		int totalQuestionsInTopics = 0;
+		for (int i = 0; i < totalTopics; i++)
+		{
+			totalQuestionsInTopics += topics[i]->getTotalQuestions();
+		}
+
+		bool* added = new bool[totalQuestionsInTopics];
+		for (int i = 0; i < totalQuestionsInTopics; i++)
+		{
+			added[i] = false;
+		}
+
+		questionList = new Question * [numQuestions];
+
+		int questionsAdded = 0;
+		while (questionsAdded < numQuestions)
+		{
+			int randomTopic = rand() % totalTopics;
+			Question** allQuestions = topics[randomTopic]->getAllQuestions();
+			int topicTotalQuestion = topics[randomTopic]->getTotalQuestions();
+
+			int random = rand() % topicTotalQuestion;
+			int actualIndex = randomTopic * topicTotalQuestion + random;
+
+			if (!added[actualIndex])
+			{
+				questionList[questionsAdded++] = allQuestions[random];
+				added[actualIndex] = true;
+			}
+		}
+		delete[] added;
+	}
+
+
+	void printQuiz()
+	{
+		cout << "====Quiz Information====" << endl;
+		char buffer[26];
+		ctime_s(buffer, 26, &quizTime);
+		cout << "Scheduled On: " << buffer << endl;
+		cout << "Total Marks: " << totalMarks << endl;
+		cout << "Time Limit: " << totalTime << endl;
+		cout << "No of Questions: " << numQuestions << endl;
+		cout << "Questions:" << endl;
+		for (int i = 0; i < numQuestions; i++)
+		{
+			questionList[i]->printDetail();
+		}
+	}
+
+	void saveQuizToFile(ofstream& fout)
+	{
+		fout << quizTime << endl;
+		fout << totalMarks << endl;
+		fout << totalTime << endl;
+		fout << numQuestions << endl;
+		for (int i = 0; i < numQuestions; i++)
+		{
+			fout << questionList[i]->getStatement();
+			fout << endl;
+			string* options = questionList[i]->getOption();
+
+			int size = questionList[i]->gettotalOptions();
+			for (int x = 0; x < size; x++)
+				fout << options[i]<<endl;
+		}
+	}
+};
+
 class Course {
 
 private:
@@ -256,6 +391,7 @@ public:
 
 	Course()
 	{
+		allQuizzes = new Quiz * [40];
 		allTopics = new Topic * [40];
 		tTopics = 0;
 		noQuizzes = 0;
@@ -271,10 +407,22 @@ public:
 	{
 		allQuizzes[noQuizzes] = quiz;
 		noQuizzes++;
+		updateQuizzesInFile();
 	}
 	int getTotalTopics()
 	{
 		return tTopics;
+	}
+	void updateQuizzesInFile()
+	{
+		ofstream fout;
+		fout.open("quizzes.txt", std::ios_base::app);
+		fout << courseId << endl;
+		for (int i = 0; i < noQuizzes; i++)
+		{
+			allQuizzes[i]->saveQuizToFile(fout);
+		}
+		fout.close();
 	}
 
 	void LoadAllTopics(string filename)
@@ -295,9 +443,7 @@ public:
 					tempTopic = new Topic();
 					tempTopic->setName(temp);
 					temp = tempTopic->Load(Input);
-
 					allTopics[tTopics++] = tempTopic;
-
 				}
 		
 			}
@@ -402,63 +548,6 @@ public:
 	{
 		return totalCourses;
 	}
-};
-
-class Quiz {
-private:
-	Question** questionList;
-	int numQuestions;
-	int totalTime;
-	int totalMarks;
-	time_t quizTime;
-
-public:
-	Quiz() 
-	{
-		questionList = nullptr;
-		numQuestions = 0;
-		totalTime = 0;
-		totalMarks = 0;
-	}
-	void generateQuiz(Topic** topics, int totalTopics, int marks, int totalQuestions, time_t quizTime, int maxTime)
-	{
-		this->totalTime = maxTime;
-		this->numQuestions = totalQuestions;
-		this->quizTime = quizTime;
-		this->totalMarks = numQuestions * marks;
-		Question** allQuestions = NULL;
-		int topicTotalQuestion = 0;
-		questionList = new Question * [numQuestions];
-	
-		for (int i = 0; i < numQuestions; i++)
-		{
-			int randomTopic = rand() % totalTopics;
-			allQuestions = topics[randomTopic]->getAllQuestions();
-			topicTotalQuestion = topics[randomTopic]->getTotalQuestions();
-
-			int random = rand() % topicTotalQuestion;
-
-			Question* randomQuestion = allQuestions[random];
-			questionList[i] = randomQuestion;
-		}
-
-	}
-	void printQuiz()
-	{
-		cout << "====Quiz Information====" << endl;
-		char buffer[26];
-		ctime_s(buffer, 26, &quizTime);
-		cout<<"Scheduled On: " << buffer <<endl;
-		cout << "Total Marks: " << totalMarks << endl;
-		cout << "Time Limit: " << totalTime << endl;
-		cout << "No of Questions: " << numQuestions << endl;
-		cout << "Questions:" << endl;
-		for (int i = 0; i < numQuestions; i++)
-		{
-			questionList[i]->printDetail();
-		}
-	}
-
 };
 
 class User
@@ -704,7 +793,7 @@ public:
 		Quiz* newQuiz = new Quiz();
 		newQuiz->generateQuiz(selectedTopics, n, marks, totalQ, quizTime_t, maxTime);
 
-		//userCourses[courseNo - 1]->addQuiz(newQuiz);
+		userCourses[courseNo - 1]->addQuiz(newQuiz);
 		newQuiz->printQuiz();
 	}
 
