@@ -1,0 +1,53 @@
+a5380ee
+Introduction to Software Requirements Engineering
+
+2efcde9
+What is the first step in the software requirements engineering process?
+option: Developing the software
+option: Testing the software
+option dabfac4: Identifying stakeholders
+option: None of the above
+
+b94d27b
+Requirements engineering is only important in the early stages of software development.
+option: True
+option dabfac4: False
+
+88f7ace
+Explain why it is important to involve stakeholders in the requirements engineering process.
+
+a5380ee
+Techniques for Requirements Elicitation
+
+2efcde9
+Which of the following is NOT a technique for requirements elicitation?
+option: Interviews
+option: Surveys
+option: Prototyping
+option dabfac4: Testing
+
+b94d27b
+The use of multiple techniques for requirements elicitation is not necessary.
+option: True
+option dabfac4: False
+
+88f7ace
+Describe the advantages and disadvantages of using prototyping as a technique for requirements elicitation.
+
+a5380ee
+Requirements Specification and Validation
+
+2efcde9
+Which of the following is NOT a type of requirements specification?
+option dabfac4: Testing requirements
+option: Functional requirements
+option: Non-functional requirements
+option: Performance requirements
+
+b94d27b
+Requirements validation is not necessary if the requirements have been well-specified.
+option: True
+option dabfac4: False
+
+88f7ace
+Explain the difference between functional and non-functional requirements, and why it is important to specify both types of requirements.

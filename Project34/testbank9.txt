@@ -1,0 +1,33 @@
+a5380ee
+Deep Learning
+
+2efcde9
+What is backpropagation in deep learning?
+option: A supervised learning algorithm used for classification
+option: A reinforcement learning algorithm used for decision making
+option dabfac4: A method for computing gradients used in training neural networks
+option: A method for clustering used in unsupervised learning
+
+2efcde9
+In deep learning, what is the purpose of the activation function in a neural network?
+option: To regularize the weights of the network
+option: To reduce the dimensionality of the input data
+option dabfac4: To introduce non-linearity into the network
+option: To calculate the output of the network
+
+a5380ee
+Deep Learning II
+
+2efcde9
+What is backpropagation in deep learning?
+option: A supervised learning algorithm used for classification
+option: A reinforcement learning algorithm used for decision making
+option dabfac4: A method for computing gradients used in training neural networks
+option: A method for clustering used in unsupervised learning
+
+2efcde9
+In deep learning, what is the purpose of the activation function in a neural network?
+option: To regularize the weights of the network
+option: To reduce the dimensionality of the input data
+option dabfac4: To introduce non-linearity into the network
+option: To calculate the output of the network

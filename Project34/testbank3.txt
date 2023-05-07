@@ -1,0 +1,42 @@
+a5380ee
+Data Structures
+
+2efcde9
+Which of the following is a non-linear data structure?
+option: Array
+option: Stack
+option: Queue
+option dabfac4: Tree
+
+b94d27b
+A stack follows the Last In First Out (LIFO) principle.
+option dabfac4: True
+option: False
+
+88f7ace
+Explain the concept of In-order traversal in binary trees with an example.
+
+a5380ee 
+Linked Lists
+
+2efcde9
+What is the time complexity of inserting an element at the beginning of a singly linked list of n elements?
+option: O(n)
+option dabfac4: O(1)
+option: O(log n)
+option: O(n^2)
+
+b94d27b
+A linked list is a linear data structure.
+option dabfac4: True
+option: False
+
+2efcde9
+Which type of linked list has a pointer to the first and the last element of the list?
+option: Doubly Linked List
+option dabfac4: Circular Linked List
+option: Singly Linked List
+option: None of the above
+
+88f7ace
+Explain the difference between singly linked lists and doubly linked lists with an example.

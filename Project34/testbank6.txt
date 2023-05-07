@@ -1,0 +1,53 @@
+a5380ee
+Research Methodology
+
+2efcde9
+Which of the following is NOT a step in the research process?
+option: Analyzing data
+option: Developing a hypothesis
+option dabfac4: Creating a budget
+option: Collecting data
+
+2efcde9
+The purpose of research methodology is to:
+option dabfac4: Establish the validity and reliability of research
+option: Ensure that research is conducted quickly
+option: Increase the cost of research
+option: Limit the scope of research
+
+2efcde9
+What is the difference between qualitative and quantitative research?
+option dabfac4: Qualitative research is subjective and descriptive, while quantitative research is numerical and objective.
+option: Qualitative research is numerical and objective, while quantitative research is subjective and descriptive.
+option: There is no difference between qualitative and quantitative research.
+option: Qualitative research is more reliable than quantitative research.
+
+88f7ace
+Explain the importance of research design in conducting a research study. Include examples to support your answer.
+
+a5380ee
+Literature & Hypothesis techniques
+
+2efcde9
+What is the purpose of a literature review in a research study?
+option: To present the results of the research study
+option: To summarize the main points of the research study
+option dabfac4: To provide a comprehensive overview of previous research on the topic
+option: To provide recommendations for future research on the topic
+
+2efcde9
+What is the difference between a research question and a hypothesis?
+option dabfac4: A research question is a broad inquiry that guides the research study, while a hypothesis is a specific, testable statement about the relationship between variables.
+option: A research question and a hypothesis are the same thing.
+option: A research question is a specific, testable statement about the relationship between variables, while a hypothesis is a broad inquiry that guides the research study.
+option: There is no difference between a research question and a hypothesis.
+
+2efcde9
+What is the difference between probability and non-probability sampling techniques in research?
+option dabfac4: Probability sampling techniques involve random selection of participants, while non-probability sampling techniques do not.
+option: Non-probability sampling techniques involve random selection of participants, while probability sampling techniques do not.
+option: There is no difference between probability and non-probability sampling techniques.
+option: Probability and non-probability sampling techniques are used only in quantitative research.
+
+88f7ace
+Explain the importance of ethical considerations in research methodology. Give examples of ethical issues that can arise in research studies and describe how they can be addressed.

@@ -1,0 +1,48 @@
+a5380ee
+Java programming
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+2efcde9
+What is the difference between a public and private access specifier in Java?
+option: A public access specifier allows access to the member from any class, whereas a private access specifier restricts access to only the current class.
+option: A public access specifier restricts access to only the current class, whereas a private access specifier allows access to the member from any class.
+option: A public access specifier allows access to the member from any method, whereas a private access specifier restricts access to only the current method.
+option dabfac4: A public access specifier allows access to the member from any class and method, whereas a private access specifier restricts access to only the current class and method.
+
+b94d27b
+In Java, the "==" operator compares the memory addresses of two objects.
+option: True
+option dabfac4: False
+
+a5380ee
+Python programming
+
+2efcde9
+What is the output of the following code?
+x = [1, 2, 3]
+print(x[2])
+option: 1
+option: 2
+option dabfac4: 3
+option: None of the above
+
+2efcde9
+What is the difference between a tuple and a list in Python?
+option: A tuple is mutable, whereas a list is immutable.
+option: A tuple can contain only integers, whereas a list can contain any data type.
+option: A tuple is ordered, whereas a list is unordered.
+option dabfac4: A tuple is immutable, whereas a list is mutable.
+
+b94d27b
+Python is a strongly typed language.
+option: True
+option dabfac4: False
+
+88f7ace
+Explain how you can use Python to read and write files. Provide examples of how to open a file, read its contents, and write data to it. What are the advantages and disadvantages of using Python for file I/O operations? Are there any special considerations or limitations to keep in mind when reading or writing files in Python?

@@ -1,0 +1,74 @@
+a5380ee
+Analysis of Algorithms
+
+2efcde9
+Which of the following is NOT a common method for analyzing algorithms?
+option: Worst-case analysis
+option: Average-case analysis
+option: Best-case analysis
+option dabfac4: Random-case analysis
+
+b94d27b
+The Big-O notation provides an upper bound on the growth rate of a function.
+option dabfac4: True
+option: False
+
+2efcde9
+Which of the following algorithms has a time complexity of O(1)?
+option dabfac4: Accessing an element in an array
+option: Binary search algorithm
+option: Selection sort algorithm
+option: Quick sort algorithm
+
+88f7ace
+Explain the concept of asymptotic analysis of algorithms with an example.
+
+a5380ee
+Time Complexity
+
+2efcde9
+Which of the following sorting algorithms has a worst-case time complexity of O(n^2)?
+option: Quick sort
+option: Merge sort
+option dabfac4: Selection sort
+option: Insertion sort
+
+b94d27b
+The lower bound on the running time of a comparison-based sorting algorithm is Ω(n log n).
+option dabfac4: True
+option: False
+
+2efcde9
+Which of the following algorithms can be used to find the shortest path between two nodes in a weighted graph?
+option dabfac4: Dijkstra's algorithm
+option: Depth-first search algorithm
+option: Breadth-first search algorithm
+option: Kruskal's algorithm
+
+88f7ace
+Explain the concept of time complexity of an algorithm with an example.
+
+a5380ee
+Analysis of Algorithms II
+
+2efcde9
+Which of the following is NOT a common method for solving recurrence relations?
+option: Substitution method
+option: Iteration method
+option: Master theorem
+option dabfac4: Approximation method
+
+b94d27b
+The time complexity of the linear search algorithm is O(n).
+option dabfac4: True
+option: False
+
+2efcde9
+Which of the following algorithms has the best time complexity for sorting n integers in the range [1, k] where k is much smaller than n?
+option: Quick sort
+option: Merge sort
+option dabfac4: Counting sort
+option: Selection sort
+
+88f7ace
+Explain the concept of space complexity of an algorithm with an example.

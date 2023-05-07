@@ -1,0 +1,48 @@
+a5380ee
+Big Data Analytics
+
+2efcde9
+What is Big Data?
+option dabfac4: A collection of large and complex data sets that cannot be processed using traditional methods.
+option: A small set of data that can be easily analyzed.
+option: A type of data that only exists in the cloud.
+option: A data set that can be processed using traditional methods.
+
+b94d27b
+The characteristics of Big Data are: Volume, Velocity, Variety, Veracity
+option dabfac4: True
+option: False
+
+2efcde9
+What is Hadoop?
+option dabfac4: An open-source software framework used for distributed storage and processing of big data.
+option: A cloud-based data storage service.
+option: A programming language used for data analysis.
+option: A relational database management system.
+
+88f7ace
+Write 100 words essay on one of the following:
+
+The impact of Big Data on business
+The challenges of processing and analyzing Big Data
+Real-world applications of Big Data Analytics
+
+a5380ee
+Big Data Information
+
+2efcde9
+Define Big Data?
+option: Data that is too large to be processed by traditional data processing software
+option: Data that is too complex to be analyzed by traditional data analysis methods
+option: Data that is too diverse to be handled by traditional data management techniques
+option dabfac4: All of the above
+
+2efcde9
+What is the difference between structured and unstructured data?
+option: Structured data is organized and formatted while unstructured data is not
+option: Structured data is easy to analyze while unstructured data is not
+option: Structured data is small in volume while unstructured data is large
+option dabfac4: All of the above
+
+88f7ace
+Explain the concept of MapReduce in Big Data Analytics. Provide an example of how MapReduce is used to process large amounts of data.

@@ -3,7 +3,21 @@
 #include <string>
 #include <sstream>
 #include <ctime>
+#include <cstdlib>
 using namespace std;
+
+void selectionSort(int* a, int n) {
+	int i, j, min, temp;
+	for (i = 0; i < n - 1; i++) {
+		min = i;
+		for (j = i + 1; j < n; j++)
+			if (a[j] < a[min])
+				min = j;
+		temp = a[i];
+		a[i] = a[min];
+		a[min] = temp;
+	}
+}
 
 class Myquestion;
 class Question;
@@ -29,8 +43,8 @@ public:
 	}
 	virtual void printDetail()
 	{
-		cout << "Statement of Question " << statement;
-		cout << endl;
+		cout << "----------------------------------" << endl;
+		cout << "Question: " << statement<< endl;
 		
 	}
 };
@@ -46,19 +60,18 @@ public:
 	void printDetail()
 	{
 		Question::printDetail();
-		cout << "Options for this Question are ";
 		for (int i = 0; i < 4; i++)
 		{
 			cout << options[i] << endl;
-
 		}
+		
 	}
 	void LoadQuestion(ifstream& fin) {
 
 		string temp;
 		getline(fin, temp);
 		int current = 0;
-		while (temp != "")
+		while (temp != "" && !fin.eof())
 		{
 			int position = temp.find("option");
 			if (position == -1)
@@ -92,19 +105,18 @@ public:
 	void printDetail()
 	{
 		Question::printDetail();
-		cout << "Options for this Question are ";
 		for (int i = 0; i < 2; i++)
 		{
 			cout << options[i] << endl;
-
 		}
+		
 	}
 
 	void LoadQuestion(ifstream& fin) {
 		string temp;
 		getline(fin, temp);
 		int current = 0;
-		while (temp != "")
+		while (temp != "" && !fin.eof())
 		{
 			int position = temp.find("option");
 			if (position == -1)
@@ -138,13 +150,11 @@ public:
 
 		string temp;
 		getline(fin, temp);
-
-		while (temp != "")
+		statement = temp;
+		while (temp != "" && !fin.eof())
 		{
 			statement = statement + temp + " ";
 			getline(fin, temp);
-
-
 		}
 
 
@@ -162,22 +172,19 @@ class Topic {
 	int count;
 public:
 
-
-
-
 	Topic()
 	{
 		AllQuestions = new Question * [50];
-
 		count = 0;
-
 	}
 	 void setName(string n)
 	{
 		name = n;
 
 	}
-
+	 Question** getAllQuestions() {
+		 return AllQuestions;
+	 }
 
 	 string Load(ifstream& Input)
 	 {
@@ -216,6 +223,11 @@ public:
 
 	 }
 	
+	 string getName()
+	 {
+		 return name;
+	 }
+
 	 void printInfo()
 	 {
 		 cout << "name of topic is" << name << endl;
@@ -224,9 +236,10 @@ public:
 			 AllQuestions[i]->printDetail();
 
 		 }
-
-
-
+	}
+	 int getTotalQuestions()
+	 {
+		 return count;
 	}
 };
 class Course {
@@ -234,22 +247,34 @@ class Course {
 private:
 	string name;
 	string courseId;
-	Quiz** quiz;
+	Quiz** allQuizzes;
 	Topic** allTopics;
 	int noQuizzes;
 	int tTopics;
 
 public:
 
-	Course(){
-
+	Course()
+	{
 		allTopics = new Topic * [40];
 		tTopics = 0;
+		noQuizzes = 0;
+	}
 
+	
+	Topic* getSpecificTopic(int index)
+	{
+		return allTopics[index - 1];
+	}
 
-
-
-
+	void addQuiz(Quiz* quiz)
+	{
+		allQuizzes[noQuizzes] = quiz;
+		noQuizzes++;
+	}
+	int getTotalTopics()
+	{
+		return tTopics;
 	}
 
 	void LoadAllTopics(string filename)
@@ -269,7 +294,7 @@ public:
 					getline(Input, temp);
 					tempTopic = new Topic();
 					tempTopic->setName(temp);
-					temp=  tempTopic->Load(Input);
+					temp = tempTopic->Load(Input);
 
 					allTopics[tTopics++] = tempTopic;
 
@@ -289,20 +314,26 @@ public:
 	{
 		courseId = c;
 	}
-	void printInfo()
+	void printCourseNames()
 	{
 		cout << name << " " << courseId << endl;
+	}
+	void printCourseTopics()
+	{
+		cout <<"Course: " << name << " " << courseId << endl;
 		for (int i = 0; i < tTopics; i++)
 		{
-
-			allTopics[i]->printInfo();
-
+			cout<<i+1<<". "<< allTopics[i]->getName()<< " Available Questions: "<< allTopics[i]->getTotalQuestions()<<endl;
 		}
+	}
+	int getTotalQuiz()
+	{
+		return noQuizzes;
+	}
 
-
-
-
-
+	void setTotalQuiz(int noQuizzes)
+	{
+		this->noQuizzes = noQuizzes;
 	}
 };
 
@@ -353,12 +384,11 @@ public:
 			{
 				mycourse[i].setCode(courseCode[i]);
 				mycourse[i].setName(courseNames[i]);
+				string file = "testbank" + to_string(i) +".txt";
+				mycourse[i].LoadAllTopics(file);
 			}
 
-
-
 			totalCourses = count;
-
 			Input.close();
 		}
 		else {
@@ -379,14 +409,55 @@ private:
 	Question** questionList;
 	int numQuestions;
 	int totalTime;
+	int totalMarks;
+	time_t quizTime;
+
 public:
 	Quiz() 
 	{
 		questionList = nullptr;
 		numQuestions = 0;
 		totalTime = 0;
+		totalMarks = 0;
 	}
+	void generateQuiz(Topic** topics, int totalTopics, int marks, int totalQuestions, time_t quizTime, int maxTime)
+	{
+		this->totalTime = maxTime;
+		this->numQuestions = totalQuestions;
+		this->quizTime = quizTime;
+		this->totalMarks = numQuestions * marks;
+		Question** allQuestions = NULL;
+		int topicTotalQuestion = 0;
+		questionList = new Question * [numQuestions];
+	
+		for (int i = 0; i < numQuestions; i++)
+		{
+			int randomTopic = rand() % totalTopics;
+			allQuestions = topics[randomTopic]->getAllQuestions();
+			topicTotalQuestion = topics[randomTopic]->getTotalQuestions();
 
+			int random = rand() % topicTotalQuestion;
+
+			Question* randomQuestion = allQuestions[random];
+			questionList[i] = randomQuestion;
+		}
+
+	}
+	void printQuiz()
+	{
+		cout << "====Quiz Information====" << endl;
+		char buffer[26];
+		ctime_s(buffer, 26, &quizTime);
+		cout<<"Scheduled On: " << buffer <<endl;
+		cout << "Total Marks: " << totalMarks << endl;
+		cout << "Time Limit: " << totalTime << endl;
+		cout << "No of Questions: " << numQuestions << endl;
+		cout << "Questions:" << endl;
+		for (int i = 0; i < numQuestions; i++)
+		{
+			questionList[i]->printDetail();
+		}
+	}
 
 };
 
@@ -482,7 +553,7 @@ public:
 		for (int i = 0; i < totalCourses; i++)
 		{
 			cout << i + 1 << ". ";
-			userCourses[i]->printInfo();
+			userCourses[i]->printCourseNames();
 		}
 		cout << endl;
 	}
@@ -493,6 +564,13 @@ public:
 		//printCourses();
 
 	};
+	virtual void printMenu(string name)
+	{
+		cout << "----------------------------------" << endl;
+		cout << "Hello Dear " << name;
+		cout << "What would you like to do today?" << endl;
+	}
+
 	virtual ~User() {}
 };
 
@@ -505,17 +583,134 @@ private:
 public:
 	void makeQuiz()
 	{
-		int n = 0;
+		int courseNo = 0;
 		cout << "Please select the course you would like to make the quiz for: " << endl;
 		printCourses();
+
+		cin >> courseNo;
+		while (courseNo > totalCourses || courseNo <= 0)
+		{
+			cout << "Invalid Input, please try again" << endl;
+			cin >> courseNo;
+		}
+		Course* course = userCourses[courseNo - 1];
+		cout << "---------------------------------------" << endl;
+		cout << "This Course has the following topics:" << endl;
+		course->printCourseTopics();
+		cout << "---------------------------------------" << endl;
+		cout << "Please enter how many topics you want to choose: " << endl;
+		int n = 0;
+		int totalTopics = course->getTotalTopics();
 		cin >> n;
-		Course* course = userCourses[n - 1];
+		while (n > totalTopics || n <= 0)
+		{
+			cout << "Invalid Input, please try again" << endl;
+			cin >> n;
+		}
+
+		cout << "Please select the topic numbers you want to include in quiz: " << endl;
+		int* topics = new int[n];
+
+		for (int i = 0; i < n; i++)
+			topics[i] = -1;
+
+		for (int i = 0; i < n; i++)
+		{
+			int c = 0;
+			cin >> c;
+
+			while (c > totalTopics || c <= 0)
+			{
+				cout << "Invalid Topic Number Entered!, Try again!" << endl;
+				cin >> c;
+			}
+
+			// Check if the topic has already been selected
+			for (int j = 0; j < i; j++)
+			{
+				if (topics[j] == c)
+				{
+					cout << "You have already selected topic number " << c << ". Please select a different topic." << endl;
+					cin >> c;
+
+					// Restart the loop with the new topic input
+					j = -1;
+				}
+			}
+
+			topics[i] = c;
+		}
+
+		selectionSort(topics, n);
+		Topic** selectedTopics = new Topic*[n];
+		int availableQuestions = 0;
+
+		for (int i = 0; i < n; i++)
+		{
+			selectedTopics[i] = course->getSpecificTopic(topics[i]);
+			availableQuestions += selectedTopics[i]->getTotalQuestions();
+		}
+	
+		int totalQ = 0;
+		cout << "Please enter total no of questions in the quiz" << endl;
+		cin >> totalQ;
+
+		while (totalQ > availableQuestions || totalQ <= 0)
+		{
+			cout << "Invalid Input, please try again" << endl;
+			cin >> totalQ;
+		}
 		
+		int marks = 0;
+		cout << "Please enter marks of each question" << endl;
+		cin >> marks;
+		while (marks <= 0)
+		{
+			cout << "Invalid Input, please try again" << endl;
+			cin >> marks;
+		}
+		
+		struct tm quizTime = {};
+		time_t currentTime = time(NULL);
+		time_t quizTime_t = time(NULL);
+		do {
+			cout << "Please enter the date and time for the quiz (in format YYYY MM DD HH MM): ";
+			cin >> quizTime.tm_year >> quizTime.tm_mon >> quizTime.tm_mday >> quizTime.tm_hour >> quizTime.tm_min;
+			quizTime.tm_year -= 1900;
+			quizTime.tm_mon -= 1;
+			time_t quizTime_t = mktime(&quizTime);
+
+			// Check if the quiz time is set in the future
+			if (quizTime_t <= currentTime) {
+				cout << "Invalid quiz time! Please enter a time in the future." << endl;
+			}
+			else {
+				// Print the quiz time to confirm
+				char buffer[26];
+				ctime_s(buffer, 26, &quizTime_t);
+				cout << "The quiz time is set as: " << buffer << endl;
+				break;
+			}
+		} while (true);
+
+		cout << "Please enter the maximum time allowed for the quiz (in minutes): ";
+		int maxTime;
+		cin >> maxTime;
+		while (maxTime <= 0) {
+			cout << "Invalid input. Please enter a positive integer: ";
+			cin >> maxTime;
+		}
+
+		Quiz* newQuiz = new Quiz();
+		newQuiz->generateQuiz(selectedTopics, n, marks, totalQ, quizTime_t, maxTime);
+
+		//userCourses[courseNo - 1]->addQuiz(newQuiz);
+		newQuiz->printQuiz();
 	}
-	void printTeacherMenu(string name)
+
+	void printMenu(string name)
 	{
-		cout << "Welcome Dear " << name << endl;
-		cout << "What would you like to do today?" << endl;
+		User::printMenu(name);
 		cout << "1. Make A Quiz" << endl;
 	}
 };
@@ -525,7 +720,16 @@ private:
 	static int totalStudents;
 
 public:
-	
+	void printMenu(string name)
+	{
+		User::printMenu(name);
+		cout << "1. Give Quiz" << endl;
+	}
+
+	void giveQuiz()
+	{
+
+	}
 };
 
 int Teacher::totalTeachers = 0;
@@ -547,7 +751,8 @@ public:
 	{
 		usersList = new User * [250];
 		totalUsers = 0;
-
+		coursesList = NULL;
+		currentUser = NULL;
 	}
 
 	void loadData(string teacher_fileName, string student_file)
@@ -677,7 +882,7 @@ public:
 			if (Teacher* teacher = dynamic_cast<Teacher*>(currentUser)) 
 			{
 				int n = 0;
-				teacher->printTeacherMenu(currentUser->getName());
+				teacher->printMenu(currentUser->getName());
 				cin >> n;
 				if (n == 1)
 				{
@@ -685,7 +890,13 @@ public:
 				}
 			}
 			else if (Student* student = dynamic_cast<Student*>(currentUser)) {
-				cout << "Current user is a Student." << endl;
+				int n = 0;
+				student->printMenu(currentUser->getName());
+				cin >> n;
+				if (n == 1)
+				{
+					student->giveQuiz();
+				}
 			}
 		}
 		else
@@ -775,17 +986,19 @@ public:
 //	}
 //};
 
-void main() {
+int main() {
 
-	//System s;
-	/*s.loadData("teachers_list.csv", "courses_offering_list.csv");
+	srand(time(NULL));
+	System s;
+	s.loadData("teachers_list.csv", "courses_offering_list.csv");
 	s.generateLogins();
-	s.login();*/
-	Course Temp; 
-	Temp.LoadAllTopics("testbank.txt");
-	Temp.printInfo();
+	s.login();
+	/*Course Temp; 
+	Temp.LoadAllTopics("testbank10.txt");
+	Temp.printInfo();*/
 	/*QuestionBank myquestions;
 	myquestions.MakeBank("testbank.txt");*/
 
-
+	system("pause");
+	return 0;
 }

@@ -1,0 +1,46 @@
+a5380ee
+Artificial Intelligence
+
+2efcde9
+Which of the following is NOT a subfield of Artificial Intelligence?
+option: Machine Learning
+option: Natural Language Processing
+option: Robotics
+option dabfac4: Data Encryption
+
+2efcde9
+Which of the following is an example of a supervised learning algorithm in Machine Learning?
+option dabfac4: Decision Tree
+option: K-Means Clustering
+option: Apriori Algorithm
+option: Reinforcement Learning
+
+88f7ace
+Explain the concept of a neural network in Artificial Intelligence. How is it used in deep learning algorithms?
+
+a5380ee
+AI Interview
+
+2efcde9
+What is the difference between weak and strong Artificial Intelligence?
+option dabfac4: Strong AI is capable of thinking and reasoning like humans, while weak AI is designed for a specific task.
+option: Weak AI is more advanced than strong AI.
+option: Strong AI is a simpler version of weak AI.
+option: There is no difference between weak and strong AI.
+
+2efcde9
+What is the purpose of reinforcement learning in Artificial Intelligence?
+option: To identify patterns in data
+option: To classify data into categories
+option: To generate new data
+option dabfac4: To learn from feedback and improve decision-making over time
+
+2efcde9
+Which of the following is an unsupervised learning algorithm in Machine Learning?
+option: Linear Regression
+option: Naive Bayes Classifier
+option dabfac4: K-Means Clustering
+option: Support Vector Machines
+
+88f7ace
+Discuss the ethical implications of Artificial Intelligence. What steps should be taken to ensure AI is used in a responsible and fair manner?

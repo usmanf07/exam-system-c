@@ -1,0 +1,78 @@
+a5380ee
+Introduction To Computing
+
+2efcde9
+What is the output of the following code
+cout << "Hello World" ;
+option: Hello
+option: World
+option dabfac4: Hello World
+option: None of the above
+
+2efcde9
+What does the acronym CPU stand for?
+option dabfac4: Central Processing Unit
+option: Central Power Unit
+option: Computer Processing Unit
+option: None of the above
+
+2efcde9
+What is the binary representation of the decimal number 10?
+option: 1010
+option: 1000
+option dabfac4: 101
+option: 100
+
+a5380ee
+Computer Organization and Architecture
+
+2efcde9
+What is the difference between a CPU and a GPU?
+option: A CPU is designed for sequential processing while a GPU is designed for parallel processing.
+option: A CPU is designed for parallel processing while a GPU is designed for sequential processing.
+option: Both CPUs and GPUs are designed for sequential processing only.
+option dabfac4: Both CPUs and GPUs can be designed for parallel processing.
+
+2efcde9
+Which of the following is a type of non-volatile memory that can retain data even when power is lost?
+option dabfac4: Flash memory
+option: DRAM
+option: SRAM
+option: Cache memory
+
+2efcde9
+What is the clock speed of a CPU?
+option: The number of cores in a CPU.
+option dabfac4: The number of cycles per second that a CPU can execute.
+option: The amount of memory that a CPU can access.
+option: The amount of power that a CPU requires to operate.
+
+88f7ace
+Explain the difference between a 32-bit and 64-bit operating system in terms of memory usage.
+
+a5380ee
+Programming Fundamentals
+
+2efcde9
+What is the difference between a compiler and an interpreter?
+option dabfac4: A compiler translates the entire source code into machine code, while an interpreter translates the source code one line at a time.
+option: A compiler translates the source code one line at a time, while an interpreter translates the entire source code into machine code.
+option: Both compilers and interpreters translate the source code one line at a time.
+option: Neither compilers nor interpreters translate the source code into machine code.
+
+2efcde9
+Which of the following is NOT a valid programming language?
+option: Python
+option: Java
+option dabfac4: HTML
+option: C++
+
+2efcde9
+What is the purpose of a loop in programming?
+option: To execute a block of code once.
+option dabfac4: To execute a block of code repeatedly.
+option: To terminate a program.
+option: To display a message to the user.
+
+88f7ace
+Explain the concept of object-oriented programming and provide an example of a real-world application that uses this paradigm.
