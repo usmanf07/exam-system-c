@@ -19,6 +19,22 @@ void selectionSort(int* a, int n) {
 	}
 }
 
+string generateRandomID(int length)
+{
+	string characters = "0123456789abcdef";
+	string result = "";
+
+	srand(time(nullptr));
+
+	for (int i = 0; i < length; i++)
+	{
+		int randomIndex = rand() % characters.size();
+		result += characters[randomIndex];
+	}
+
+	return result;
+}
+
 class Myquestion;
 class Question;
 class Quiz;
@@ -62,7 +78,7 @@ public:
 class MCQs : public Question {
 
 
-	string options[4];
+	string* options;
 	int correctOption;
 	int totalOptions;
 
@@ -70,6 +86,7 @@ public:
 	MCQs() :Question()
 	{
 		totalOptions = 0;
+		options = new string[4];
 	}
 	virtual int gettotalOptions()override
 	{
@@ -114,20 +131,21 @@ public:
 
 		}
 
-		totalOptions = current - 1;
+		totalOptions = current + 1;
 
 
 	}
 
 };
 class TFalse : public Question {
-	string options[2];
+	string *options;
 	int correctOption;
 	int totalOptions;
 public:
 	TFalse() :Question()
 	{
 		totalOptions = 0;
+		options = new string[2];
 	}
 	virtual string* getOption() override
 	{
@@ -168,7 +186,7 @@ public:
 			}
 			getline(fin, temp);
 
-			totalOptions = current - 1;
+			totalOptions = current + 1;
 		}
 	}
 
@@ -283,6 +301,7 @@ public:
 
 class Quiz {
 private:
+	string quizID;
 	Question** questionList;
 	int numQuestions;
 	int totalTime;
@@ -300,6 +319,7 @@ public:
 	
 	void generateQuiz(Topic** topics, int totalTopics, int marks, int totalQuestions, time_t quizTime, int maxTime)
 	{
+		this->quizID = generateRandomID(7);
 		this->totalTime = maxTime;
 		this->numQuestions = totalQuestions;
 		this->quizTime = quizTime;
@@ -360,19 +380,42 @@ public:
 
 	void saveQuizToFile(ofstream& fout)
 	{
+		fout << "quiz: " << quizID << endl;
 		fout << quizTime << endl;
 		fout << totalMarks << endl;
 		fout << totalTime << endl;
 		fout << numQuestions << endl;
 		for (int i = 0; i < numQuestions; i++)
 		{
-			fout << questionList[i]->getStatement();
+			Question* q = questionList[i];
+			MCQs* mcq = dynamic_cast<MCQs*>(q);
+			TFalse* tFalse = dynamic_cast<TFalse*>(q);
+			Subjective* subjective = dynamic_cast<Subjective*>(q);
+			int qoptions = 0;
+			string id = "";
+			if (mcq != nullptr) 
+			{
+				id = "2efcde9";
+				qoptions = 4;
+			}
+			else if (tFalse != nullptr) {
+				id = "b94d27b";
+				qoptions = 2;
+			}
+			else if (subjective != nullptr) {
+				id = "88f7ace";
+				qoptions = 0;
+			}
+			fout << id << endl;
+			fout << q->getStatement();
 			fout << endl;
-			string* options = questionList[i]->getOption();
-
-			int size = questionList[i]->gettotalOptions();
-			for (int x = 0; x < size; x++)
-				fout << options[i]<<endl;
+			string* op = q->getOption();
+			for (int x = 0; x < qoptions; x++)
+			{
+				fout << op[x];
+				if(x != qoptions -1 )
+					fout << endl;
+			}
 		}
 	}
 };
@@ -417,12 +460,21 @@ public:
 	{
 		ofstream fout;
 		fout.open("quizzes.txt", std::ios_base::app);
-		fout << courseId << endl;
+		fout <<"course: " << courseId << endl;
 		for (int i = 0; i < noQuizzes; i++)
 		{
 			allQuizzes[i]->saveQuizToFile(fout);
 		}
 		fout.close();
+	}
+
+	void loadQuizzesFromFile()
+	{
+		ifstream fin("quizzes.txt");
+		if (fin.is_open())
+		{
+
+		}
 	}
 
 	void LoadAllTopics(string filename)
