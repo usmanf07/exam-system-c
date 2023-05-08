@@ -1,22 +1,66 @@
-course: CS 407
-quiz: 80b2603
-1683502045
+course: CS 201
+quiz: 5b325b6
+1683545524
+200
+20
+5
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java? 
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+b94d27b
+In Java, the "==" operator compares the memory addresses of two objects. 
+option: True
+option dabfac4: False
+
+2efcde9
+What is the difference between a public and private access specifier in Java? 
+option: A public access specifier allows access to the member from any class, whereas a private access specifier restricts access to only the current class.
+option: A public access specifier restricts access to only the current class, whereas a private access specifier allows access to the member from any class.
+option: A public access specifier allows access to the member from any method, whereas a private access specifier restricts access to only the current method.
+option dabfac4: A public access specifier allows access to the member from any class and method, whereas a private access specifier restricts access to only the current class and method.
+
+b94d27b
+Python is a strongly typed language. 
+option: True
+option dabfac4: False
+
+2efcde9
+What is the output of the following code? x = [1, 2, 3] print(x[2]) 
+option: 1
+option: 2
+option dabfac4: 3
+option: None of the above
+
+course: CS 601
+quiz: 964ce88
+1683549822
+60
 40
-10
-4
+3
+
 2efcde9
-What is the difference between structured and unstructured data? 2efcde9
-option: Structured data is organized and formatted while unstructured data is not
-option: Structured data is easy to analyze while unstructured data is not
-option: Structured data is small in volume while unstructured data is large
-option dabfac4: All of the above
-88f7ace
-Write 100 words essay on one of the following:Write 100 words essay on one of the following: 88f7ace
+What is backpropagation in deep learning? 
+option: A supervised learning algorithm used for classification
+option: A reinforcement learning algorithm used for decision making
+option dabfac4: A method for computing gradients used in training neural networks
+option: A method for clustering used in unsupervised learning
+
 2efcde9
-What is Hadoop? 2efcde9
-option dabfac4: An open-source software framework used for distributed storage and processing of big data.
-option: A cloud-based data storage service.
-option: A programming language used for data analysis.
-option: A relational database management system.
-88f7ace
-Explain the concept of MapReduce in Big Data Analytics. Provide an example of how MapReduce is used to process large amounts of data.88f7ace
+What is backpropagation in deep learning? 
+option: A supervised learning algorithm used for classification
+option: A reinforcement learning algorithm used for decision making
+option dabfac4: A method for computing gradients used in training neural networks
+option: A method for clustering used in unsupervised learning
+
+2efcde9
+In deep learning, what is the purpose of the activation function in a neural network? 
+option: To regularize the weights of the network
+option: To reduce the dimensionality of the input data
+option dabfac4: To introduce non-linearity into the network
+
+
