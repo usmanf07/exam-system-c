@@ -316,6 +316,66 @@ public:
 		totalTime = 0;
 		totalMarks = 0;
 	}
+
+	string loadQuestion(ifstream& Input, string temp)
+	{
+		string setId = temp.substr(6);
+		quizID =  setId;
+
+		getline(Input, temp);
+		int timestamp = stoi(temp);
+		quizTime = timestamp;
+		getline(Input, temp);
+		totalMarks = stoi(temp);
+		getline(Input, temp);
+		totalMarks = stoi(temp);
+		getline(Input, temp);
+		numQuestions = stoi(temp);
+
+		getline(Input, temp);
+		int count = 0;
+		questionList = new Question * [20];
+		Question* temp1;
+		while (temp.find("course") == -1 && temp.find("quiz") == -1 && !Input.eof() )
+		{
+			if (temp == "2efcde9")
+			{
+				temp1 = new MCQs();
+				temp1->LoadQuestion(Input);
+				questionList[count] = temp1;
+				count++;
+			}
+			if (temp == "b94d27b")
+			{
+				temp1 = new TFalse();
+				temp1->LoadQuestion(Input);
+				questionList[count] = temp1;
+				count++;
+			}
+
+			if (temp == "88f7ace")
+			{
+				temp1 = new Subjective();
+				temp1->LoadQuestion(Input);
+				questionList[count] = temp1;
+				count++;
+			}
+
+			getline(Input, temp);
+			
+			
+
+		}
+
+
+
+
+
+		return temp;
+
+
+
+	}
 	
 	void generateQuiz(Topic** topics, int totalTopics, int marks, int totalQuestions, time_t quizTime, int maxTime)
 	{
@@ -385,6 +445,7 @@ public:
 		fout << totalMarks << endl;
 		fout << totalTime << endl;
 		fout << numQuestions << endl;
+		fout << endl;	
 		for (int i = 0; i < numQuestions; i++)
 		{
 			Question* q = questionList[i];
@@ -416,6 +477,10 @@ public:
 				if(x != qoptions -1 )
 					fout << endl;
 			}
+
+			fout << endl;
+			fout << endl;
+			
 		}
 	}
 };
@@ -432,6 +497,15 @@ private:
 
 public:
 
+
+
+
+	string getId()
+	{
+
+		return courseId;
+
+	}
 	Course()
 	{
 		allQuizzes = new Quiz * [40];
@@ -468,13 +542,39 @@ public:
 		fout.close();
 	}
 
-	void loadQuizzesFromFile()
+	string loadQuizzesFromFile(ifstream & Input)
 	{
-		ifstream fin("quizzes.txt");
-		if (fin.is_open())
+		string temp="t";
+
+		int count = 0;
+		while (temp.find("course") == -1 && !Input.eof())
 		{
+			getline(Input, temp);
+			if (temp.find("quiz")!=-1)
+			{
+				Quiz* t = new Quiz();
+				temp = t->loadQuestion(Input, temp);
+				
+				allQuizzes[noQuizzes++] = t;
+				
+
+				break;
+			}
 
 		}
+		for (int i = 0; i < noQuizzes; i++)
+		{
+
+			allQuizzes[i]->printQuiz();
+
+		}
+
+
+		return temp;
+
+
+
+
 	}
 
 	void LoadAllTopics(string filename)
@@ -544,6 +644,63 @@ public:
 	{
 		totalCourses = 0;
 	}
+
+	void LoadQuizes(Course* allCourse, int count )
+	{
+		ifstream Input("quizzes.txt");
+		if (Input.is_open())
+		{
+
+			string temp;
+			getline(Input, temp);
+			while (!Input.eof()) {
+				int position = temp.find("course");
+				if (position != -1)
+				{
+					string courseId = temp.substr(8);
+					int couseIndex = 0;
+					for (int i = 0; i < count; i++)
+					{
+						string t = allCourse[i].getId();
+
+						if (t == courseId)
+						{
+							couseIndex = i;
+							break;
+						}
+					}
+					temp=allCourse[couseIndex].loadQuizzesFromFile(Input);
+
+
+					
+
+				}
+
+			}
+
+
+
+
+
+		}
+		else
+		{
+
+
+
+		}
+
+
+
+
+
+
+
+	}
+
+
+
+
 	Course* LoadCourse(string file) {
 		ifstream Input(file);
 		string temp;
@@ -901,6 +1058,19 @@ public:
 		AllCourses Temp;
 		this->coursesList = Temp.LoadCourse(student_file);
 		int totalC = Temp.getTotalCourses();
+		Temp.LoadQuizes(coursesList, totalC);
+	
+
+
+	
+
+
+
+
+		
+
+	
+
 
 		int total = 0;
 		int countTeachers = 0;
@@ -1048,92 +1218,13 @@ public:
 };
 
 
-
-
-
-//class QuestionBank
-//{
-//	Question** AllQuestions;
-//
-//	int count;
-//
-//public:
-//	QuestionBank()
-//	{
-//		AllQuestions = new Question * [100];
-//		count = 0;
-//	}
-//	void MakeBank(string filename)
-//	{
-//		ifstream Input(filename);	
-//		string temp;
-//		string topic;
-//		Question* temp1;
-//		if (Input.is_open())
-//		{
-//
-//
-//			while (!Input.eof())
-//			{
-//				getline(Input, temp);
-//
-//
-//				if (temp == "a5380ee")
-//				{
-//					getline(Input, topic);
-//				}
-//				if (temp == "2efcde9")
-//				{
-//					temp1 = new MCQs();
-//					temp1->LoadQuestion(Input);
-//					temp1->setTopic(topic);
-//					AllQuestions[count] = temp1;
-//
-//					count++;
-//				}
-//				if (temp == "b94d27b")
-//				{
-//					temp1 = new TFalse();
-//					temp1->LoadQuestion(Input);
-//					temp1->setTopic(topic);
-//					AllQuestions[count] = temp1;
-//					count++;
-//				}
-//
-//				if (temp == "88f7ace")
-//				{
-//					temp1 = new Subjective();
-//					temp1->LoadQuestion(Input);
-//					temp1->setTopic(topic);
-//					AllQuestions[count] = temp1;
-//					count++;
-//				}
-//
-//			}
-//
-//
-//			for (int i = 0; i < count; i++)
-//			{
-//				AllQuestions[i]->printDetail();
-//				cout << endl;
-//				cout << endl;
-//			}
-//		}
-//		else {
-//			cout << "Error Opening File";
-//		}
-//
-//
-//	}
-//};
-
 int main() {
 
 	srand(time(NULL));
 	System s;
 	s.loadData("teachers_list.csv", "courses_offering_list.csv");
-	s.generateLogins();
-	s.login();
+	/*s.generateLogins();
+	s.login();*/
 	/*Course Temp; 
 	Temp.LoadAllTopics("testbank10.txt");
 	Temp.printInfo();*/
