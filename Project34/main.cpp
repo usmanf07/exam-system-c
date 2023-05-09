@@ -381,6 +381,8 @@ private:
 	time_t quizTime;
 
 public:
+	
+
 	Quiz()
 	{
 		questionList = nullptr;
@@ -597,7 +599,39 @@ public:
 
 
 
+	void getScoreStats(Quiz* selectedQuiz,int& avg,int& tstud) {
+		string quizID = selectedQuiz->getQuizID();
+		string answerSheetFileName = "AnswerSheet_" + quizID + ".txt";
+		ifstream answerSheet(answerSheetFileName);
+		if (!answerSheet) {
+			cout << "Answer sheet file does not exist." << endl;
+			return;
+		}
+		double score=0;
+		double totalScore = 0;
+		int numStudents = 0;
+		while (!answerSheet.eof()) {
+			string name, temp, score_str, correctAns;
+			
+			getline(answerSheet, name);
+			if (name.empty()) {
+				continue;
+			}
+			getline(answerSheet, temp); // read Quiz ID line
+			getline(answerSheet, score_str); // read Score line
+			getline(answerSheet, correctAns); // read Correct Answers line
+			
+			string substr2 = score_str.substr( 7);
+			score = stod(substr2);
 
+			totalScore += score;
+			numStudents++;
+		}
+		answerSheet.close();
+		
+		avg = totalScore / numStudents;
+		tstud = numStudents;
+	}
 	string getId()
 	{
 
@@ -656,7 +690,7 @@ public:
 				allQuizzes[noQuizzes++] = t;
 				
 
-				break;
+			
 			}
 
 		}
@@ -1008,6 +1042,88 @@ private:
 	static int totalTeachers;
 
 public:
+	void printCoursesStats()
+	{
+		int courseNo = 0;
+		cout << "Please select the course you would like to select the individual quiz: " << endl;
+		printCourses();
+		cin >> courseNo;
+		while (courseNo > totalCourses || courseNo <= 0)
+		{
+			cout << "Invalid Input, please try again" << endl;
+			cin >> courseNo;
+		}
+		Course* course = userCourses[courseNo - 1];
+
+		int totalQuiz = course->getTotalQuiz();
+		if (totalQuiz <= 0)
+		{
+			cout << "No Quiz is Available in the following course." << endl;
+
+		}
+		else
+		{
+			int score = 0;
+			int totalstud = 0;
+			double average = 0;
+			for (int i = 0; i < totalQuiz; i++)
+			{
+
+				Quiz* selectedQuiz = course->getSpecificQuiz(i+1);
+				course->getScoreStats(selectedQuiz,score,totalstud);
+				cout << "Total " << totalstud << " attends this quiz"<<endl;
+				average = average + score;
+			}
+			cout << "total average of the whole course quizes is " << average / totalQuiz;
+
+
+
+		}
+
+	}
+	void printOneQuiz()
+	{
+		
+		int courseNo = 0;
+		cout << "Please select the course you would like to select the individual quiz: " << endl;
+		printCourses();
+		cin >> courseNo;
+		while (courseNo > totalCourses || courseNo <= 0)
+		{
+			cout << "Invalid Input, please try again" << endl;
+			cin >> courseNo;
+		}
+		Course* course = userCourses[courseNo - 1];
+
+
+		int totalQuiz = course->getTotalQuiz();
+		if (totalQuiz <= 0)
+		{
+			cout << "No Quiz is Available in the following course."<<endl;
+			
+		}
+		else
+		{
+			int quizNo = 0;
+			cout << "Available Quizzes: " << endl;
+			course->printQuizzesList();
+			cout << "Enter the no of the quiz you want to select: ";
+			cin >> quizNo;
+
+			while (quizNo > totalQuiz || quizNo <= 0)
+			{
+				cout << "Invalid Input, please try again" << endl;
+				cin >> quizNo;
+			}
+			int avg = 0, tstud = 0;
+			Quiz* selectedQuiz = course->getSpecificQuiz(quizNo);
+			course->getScoreStats(selectedQuiz,avg,tstud);
+			cout << "Quiz ID: " << selectedQuiz->getQuizID() << endl;
+			cout << "Number of students: " << tstud << endl;
+			cout << "average score: " << avg << endl;
+		}
+
+	}
 	void makeQuiz()
 	{
 		int courseNo = 0;
@@ -1140,6 +1256,8 @@ public:
 	{
 		User::printMenu(name);
 		cout << "1. Make A Quiz" << endl;
+		cout << "2. Show Individual Quiz stats" << endl;
+		cout << "3. Print Whole Course Quiz stats" << endl;
 	}
 };
 
@@ -1152,6 +1270,30 @@ public:
 	{
 		User::printMenu(name);
 		cout << "1. Give Quiz" << endl;
+	}
+
+	void saveScoreToFile(double score, int* correctAnswers, Quiz* selectedQuiz)
+	{
+		string quizID = selectedQuiz->getQuizID();
+		string fileName = "AnswerSheet_" + quizID + ".txt";
+		ofstream fout(fileName, ios::app);
+		if (!fout.is_open())
+		{
+			cout << "Failed to open file!" << endl;
+			return;
+		}
+		fout << "Student Name: " << name << endl;
+		fout << "Quiz ID: " << quizID << endl;
+		fout << "Score: " << score << endl;
+		fout << "Correct Answers: ";
+		int totalQuestions = selectedQuiz->getTotalQuestions();
+		for (int i = 0; i < totalQuestions; i++)
+		{
+			fout << correctAnswers[i] << " ";
+		}
+		fout << endl;
+		fout.close();
+		cout << "Score saved to file: " << fileName << endl;
 	}
 
 	bool checkAnswer(Question* question, int selected_option)
@@ -1169,7 +1311,8 @@ public:
 		double score = 0;
 		int totalQuestions = selectedQuiz->getTotalQuestions();
 		int marks = selectedQuiz->getMarksofEachQ();
-		cout << marks;
+		int* correctAnswers = new int[totalQuestions];
+		cout << marks<<endl;
 		for (int i = 0; i < totalQuestions; i++)
 		{
 			int ans = 0;
@@ -1177,7 +1320,8 @@ public:
 
 			Question* question = selectedQuiz->getSingleQuestion(i);
 			question->printQuestionSt();
-			cout<<question->getCorrectOption()<<endl;
+			int temp = question->getCorrectOption();
+			cout<<temp+1<< endl;
 			if (MCQs* mcq = dynamic_cast<MCQs*>(question))
 			{
 
@@ -1190,6 +1334,10 @@ public:
 				if (checkAnswer(mcq, ans))
 				{
 					score += marks;
+					correctAnswers[i] = 1;
+				}
+				else {
+					correctAnswers[i] = 0;
 				}
 			}
 			else if (TFalse* truefalse = dynamic_cast<TFalse*>(question))
@@ -1202,7 +1350,12 @@ public:
 				}
 				if (checkAnswer(truefalse, ans))
 				{
+					correctAnswers[i] = 1;
 					score += marks;
+				}
+				else {
+					correctAnswers[i] = 0;
+
 				}
 			}
 			else
@@ -1216,12 +1369,40 @@ public:
 				}
 				wordCount++; 
 				score += wordCount * 0.01;
+				temp = score;
+				correctAnswers[i] = score;
 			}
 			
-
+			
 		}
+		saveScoreToFile(score, correctAnswers, selectedQuiz);
 		return score;
 	}
+	void readAnswerSheet(Quiz* selectedQuiz) {
+		string quizID = selectedQuiz->getQuizID();
+		string answerSheetFileName = "AnswerSheet_" + quizID + ".txt";
+		ifstream answerSheet(answerSheetFileName);
+		if (!answerSheet) {
+			
+			return;
+		}
+		cout << "Quiz ID: " << quizID << endl;
+		cout << "Student Name\tScore" << endl;
+		while (!answerSheet.eof()) {
+			string name, temp, score_str, correctAns;
+			double score;
+			getline(answerSheet, name);
+			getline(answerSheet, temp); // read Quiz ID line
+			getline(answerSheet, score_str); // read Score line
+			getline(answerSheet, correctAns); // read Correct Answers line
+			
+				
+			cout << name << "\t" << score_str << endl;
+			
+		}
+		answerSheet.close();
+	}
+
 	void giveQuiz()
 	{
 		selectCourse: int courseNo = 0;
@@ -1261,21 +1442,28 @@ public:
 			time_t quizScheduledTime = selectedQuiz->getQuizSchedule();
 			time_t currentTime;
 			time(&currentTime);
-
+			time_t now = time(0);
 			int quizTime = selectedQuiz->getTotalTime();
+
+			time_t quizEndTime = quizScheduledTime + quizTime * 60;
+				
 			time_t unixQuizTime = time(nullptr) + (quizTime * 60);
 
 			printTime(difftime(quizScheduledTime, currentTime));
 			cout << endl;
 			printTime(unixQuizTime);
-			if (difftime(currentTime, quizScheduledTime) < unixQuizTime)
+			if (now >= quizScheduledTime && now <= quizEndTime)
 			{
 				
 				double score = startQuiz(selectedQuiz);
 				cout << score;
+				
 			}
 			else {
 				cout << "Quiz is expired";
+				cout << endl;
+				readAnswerSheet(selectedQuiz);
+				
 			}
 		}
 	}
@@ -1424,7 +1612,7 @@ public:
 		string user, pass;
 		cout << "Enter Username" << endl;
 		//cin >> user;
-		user = "20I-0927";
+		user = "t46905";
 		cout << "Enter Password" << endl;
 		pass = "123456";
 		//cin >> pass;
@@ -1440,6 +1628,18 @@ public:
 				if (n == 1)
 				{
 					teacher->makeQuiz();
+				}
+				if (n == 2)
+				{
+					teacher->printOneQuiz();
+
+
+				}
+				if (n == 3)
+				{
+					teacher->printCoursesStats();
+
+
 				}
 			}
 			else if (Student* student = dynamic_cast<Student*>(currentUser)) {

@@ -1,9 +1,9 @@
 course: CS 201
-quiz: 5b325b6
-1683545524
-200
-20
-5
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
 
 2efcde9
 What is the difference between a while loop and a do-while loop in Java? 
@@ -11,6 +11,56 @@ option: A while loop executes its statements at least once, whereas a do-while l
 option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
 option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
 option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+course: CS 407
+quiz: 96f568f
+1683654487
+16
+60
+4
+
+88f7ace
+Write 100 words essay on one of the following:Write 100 words essay on one of the following: 
+
+
+2efcde9
+What is Big Data? 
+option dabfac4: A collection of large and complex data sets that cannot be processed using traditional methods.
+option: A small set of data that can be easily analyzed.
+option: A type of data that only exists in the cloud.
+option: A data set that can be processed using traditional methods.
+
+b94d27b
+The characteristics of Big Data are: Volume, Velocity, Variety, Veracity 
+option dabfac4: True
+option: False
+
+2efcde9
+What is Hadoop? 
+option dabfac4: An open-source software framework used for distributed storage and processing of big data.
+option: A cloud-based data storage service.
+option: A programming language used for data analysis.
+option: A relational database management system.
+
+course: CS 201
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?  
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: bd8f425
+1683657324
+50
+30
+5
 
 b94d27b
 In Java, the "==" operator compares the memory addresses of two objects. 
@@ -36,57 +86,45 @@ option: 2
 option dabfac4: 3
 option: None of the above
 
-course: CS 601
-quiz: 964ce88
-1689820800
-60
-40
-3
-
 2efcde9
-What is backpropagation in deep learning? 
-option: A supervised learning algorithm used for classification
-option: A reinforcement learning algorithm used for decision making
-option dabfac4: A method for computing gradients used in training neural networks
-option: A method for clustering used in unsupervised learning
-
-2efcde9
-What is backpropagation in deep learning? 
-option: A supervised learning algorithm used for classification
-option: A reinforcement learning algorithm used for decision making
-option dabfac4: A method for computing gradients used in training neural networks
-option: A method for clustering used in unsupervised learning
-
-2efcde9
-In deep learning, what is the purpose of the activation function in a neural network? 
-option: To regularize the weights of the network
-option: To reduce the dimensionality of the input data
-option dabfac4: To introduce non-linearity into the network
-
+What is the difference between a tuple and a list in Python? 
+option: A tuple is mutable, whereas a list is immutable.
+option: A tuple can contain only integers, whereas a list can contain any data type.
+option: A tuple is ordered, whereas a list is unordered.
+option dabfac4: A tuple is immutable, whereas a list is mutable.
 
 course: CS 201
-quiz: 986a38d
-1683648040
-50
-60
-5
-
-b94d27b
-In Java, the "==" operator compares the memory addresses of two objects. 
-option: True
-option dabfac4: False
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
 
 2efcde9
-What is the output of the following code? x = [1, 2, 3] print(x[2]) 
-option: 1
-option: 2
-option dabfac4: 3
-option: None of the above
+What is the difference between a while loop and a do-while loop in Java?  
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
 
-b94d27b
-Python is a strongly typed language. 
-option: True
-option dabfac4: False
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?   
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 7425433
+1683657860
+1
+20
+1
 
 2efcde9
 What is the difference between a while loop and a do-while loop in Java? 
@@ -95,5 +133,251 @@ option: A while loop only executes its statements once, whereas a do-while loop 
 option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
 option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
 
+course: CS 201
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?  
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?   
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?   
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 7425433
+1683657860
+1
+20
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?  
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: f24e2e4
+1683661677
+40
+10
+4
+
+2efcde9
+What is the output of the following code? x = [1, 2, 3] print(x[2]) 
+option: 1
+option: 2
+option dabfac4: 3
+option: None of the above
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java? 
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+2efcde9
+What is the difference between a tuple and a list in Python? 
+option: A tuple is mutable, whereas a list is immutable.
+option: A tuple can contain only integers, whereas a list can contain any data type.
+option: A tuple is ordered, whereas a list is unordered.
+option dabfac4: A tuple is immutable, whereas a list is mutable.
+
+b94d27b
+In Java, the "==" operator compares the memory addresses of two objects. 
+option: True
+option dabfac4: False
+
+course: CS 201
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?  
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?   
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?   
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 7425433
+1683657860
+1
+20
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?  
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?   
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: 6a9e8d1
+1683653656
+10
+10
+1
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?    
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+quiz: f24e2e4
+1683661677
+40
+10
+4
+
+2efcde9
+What is the output of the following code? x = [1, 2, 3] print(x[2])  
+option: 1
+option: 2
+option dabfac4: 3
+option: None of the above
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java?  
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+2efcde9
+What is the difference between a tuple and a list in Python?  
+option: A tuple is mutable, whereas a list is immutable.
+option: A tuple can contain only integers, whereas a list can contain any data type.
+option: A tuple is ordered, whereas a list is unordered.
+option dabfac4: A tuple is immutable, whereas a list is mutable.
+
+b94d27b
+In Java, the "==" operator compares the memory addresses of two objects.  
+option: True
+option dabfac4: False
+
+quiz: baa44d6
+1683661740
+20
+50
+1
+
+b94d27b
+In Java, the "==" operator compares the memory addresses of two objects. 
+option: True
+option dabfac4: False
+
+course: CS 407
+quiz: 96f568f
+1683654487
+16
+60
+4
+
 88f7ace
-How would you explain about association?
+Write 100 words essay on one of the following:Write 100 words essay on one of the following: Write 100 words essay on one of the following:Write 100 words essay on one of the following:  
+
+
+2efcde9
+What is Big Data?  
+option dabfac4: A collection of large and complex data sets that cannot be processed using traditional methods.
+option: A small set of data that can be easily analyzed.
+option: A type of data that only exists in the cloud.
+option: A data set that can be processed using traditional methods.
+
+b94d27b
+The characteristics of Big Data are: Volume, Velocity, Variety, Veracity  
+option dabfac4: True
+option: False
+
+2efcde9
+What is Hadoop?  
+option dabfac4: An open-source software framework used for distributed storage and processing of big data.
+option: A cloud-based data storage service.
+option: A programming language used for data analysis.
+option: A relational database management system.
+
+quiz: 180b006
+1683661777
+10
+50
+1
+
+b94d27b
+The characteristics of Big Data are: Volume, Velocity, Variety, Veracity 
+option dabfac4: True
+option: False
+
