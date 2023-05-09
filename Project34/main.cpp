@@ -19,6 +19,13 @@ void selectionSort(int* a, int n) {
 	}
 }
 
+void printTime(time_t time)
+{
+	char buffer[26];
+	ctime_s(buffer, 26, &time);
+	cout << buffer;
+}
+
 string generateRandomID(int length)
 {
 	string characters = "0123456789abcdef";
@@ -66,11 +73,20 @@ public:
 		cout << "Question: " << statement<< endl;
 	}
 
+	virtual void printQuestionSt()
+	{
+		cout << "----------------------------------" << endl;
+		cout << statement << endl;
+	}
 	string getStatement()
 	{
 		return statement;
 	}
 
+	virtual int getCorrectOption()
+	{
+		return 0;
+	}
 	virtual string* getOption() = 0;
 	virtual int gettotalOptions() = 0;
 };
@@ -87,6 +103,24 @@ public:
 	{
 		totalOptions = 0;
 		options = new string[4];
+	}
+	int getCorrectOption()
+	{
+		return correctOption;
+	}
+	virtual void printQuestionSt()
+	{
+		Question::printQuestionSt();
+		for (int i = 0; i < 4; i++)
+		{
+			cout << i + 1 << ". ";
+			if (i == correctOption) {
+				cout << "option:" << options[i].substr(options[i].find(":") + 1) << endl;
+			}
+			else {
+				cout << options[i] << endl;
+			}
+		}
 	}
 	virtual int gettotalOptions()override
 	{
@@ -120,8 +154,10 @@ public:
 			}
 			else {
 
+				
 
 				options[current] = temp;
+				
 				current++;
 
 
@@ -133,6 +169,13 @@ public:
 
 		totalOptions = current + 1;
 
+		for (int i = 0; i < 4; i++)
+		{
+			if (options[i].find("dabfac4") != -1) {
+				correctOption = i;
+				break;
+			}
+		}
 
 	}
 
@@ -147,6 +190,10 @@ public:
 		totalOptions = 0;
 		options = new string[2];
 	}
+	int getCorrectOption()
+	{
+		return correctOption;
+	}
 	virtual string* getOption() override
 	{
 		return options;
@@ -155,6 +202,21 @@ public:
 	{
 		return totalOptions;
 	}
+	virtual void printQuestionSt()
+	{
+		Question::printQuestionSt();
+		for (int i = 0; i < 2; i++)
+		{
+			cout << i + 1 << ". ";
+			if (i == correctOption) {
+				cout << "option:" << options[i].substr(options[i].find(":") + 1) << endl;
+			}
+			else {
+				cout << options[i] << endl;
+			}
+		}
+	}
+
 	void printDetail()
 	{
 		Question::printDetail();
@@ -180,6 +242,8 @@ public:
 
 
 				options[current] = temp;
+				
+
 				current++;
 
 
@@ -187,6 +251,14 @@ public:
 			getline(fin, temp);
 
 			totalOptions = current + 1;
+		}
+
+		for (int i = 0; i < 2; i++)
+		{
+			if (options[i].find("dabfac4") != -1) {
+				correctOption = i;
+				break;
+			}
 		}
 	}
 
@@ -316,7 +388,20 @@ public:
 		totalTime = 0;
 		totalMarks = 0;
 	}
+	time_t getQuizSchedule()
+	{
+		return quizTime;
+	}
 
+	int getTotalTime()
+	{
+		return totalTime;
+	}
+
+	string getQuizID()
+	{
+		return quizID;
+	}
 	string loadQuestion(ifstream& Input, string temp)
 	{
 		string setId = temp.substr(6);
@@ -328,7 +413,7 @@ public:
 		getline(Input, temp);
 		totalMarks = stoi(temp);
 		getline(Input, temp);
-		totalMarks = stoi(temp);
+		totalTime = stoi(temp);
 		getline(Input, temp);
 		numQuestions = stoi(temp);
 
@@ -425,9 +510,9 @@ public:
 	void printQuiz()
 	{
 		cout << "====Quiz Information====" << endl;
-		char buffer[26];
-		ctime_s(buffer, 26, &quizTime);
-		cout << "Scheduled On: " << buffer << endl;
+
+		cout << "Scheduled On: "; printTime(quizTime);
+		cout << endl;
 		cout << "Total Marks: " << totalMarks << endl;
 		cout << "Time Limit: " << totalTime << endl;
 		cout << "No of Questions: " << numQuestions << endl;
@@ -436,6 +521,19 @@ public:
 		{
 			questionList[i]->printDetail();
 		}
+	}
+	int getMarksofEachQ()
+	{
+		return  totalMarks / numQuestions;
+	}
+	int getTotalQuestions()
+	{
+		return numQuestions;
+	}
+
+	Question* getSingleQuestion(int i)
+	{
+		return questionList[i];
 	}
 
 	void saveQuizToFile(ofstream& fout)
@@ -562,12 +660,12 @@ public:
 			}
 
 		}
-		for (int i = 0; i < noQuizzes; i++)
+		/*for (int i = 0; i < noQuizzes; i++)
 		{
 
 			allQuizzes[i]->printQuiz();
 
-		}
+		}*/
 
 
 		return temp;
@@ -612,10 +710,30 @@ public:
 	{
 		courseId = c;
 	}
+	Quiz* getSpecificQuiz(int index)
+	{
+		return allQuizzes[index - 1];
+	}
+	void printQuizzesList()
+	{
+		for (int i = 0; i < noQuizzes; i++)
+		{
+			cout << i + 1 << ". ";
+			cout << "Course: " << name << " Quiz ID: " << allQuizzes[i]->getQuizID() << " Starting Time: ";
+			time_t t = allQuizzes[i]->getQuizSchedule();
+			printTime(t);
+			
+		}
+	}
 	void printCourseNames()
 	{
 		cout << name << " " << courseId << endl;
 	}
+	string getName()
+	{
+		return name;
+	}
+
 	void printCourseTopics()
 	{
 		cout <<"Course: " << name << " " << courseId << endl;
@@ -683,14 +801,6 @@ public:
 
 
 		}
-		else
-		{
-
-
-
-		}
-
-
 
 
 
@@ -856,6 +966,25 @@ public:
 		cout << endl;
 	}
 
+	void printQuizCourse()
+	{
+		cout << "Available quizzes:" << endl;
+		for (int i = 0; i < totalCourses; i++) 
+		{
+			userCourses[i]->printQuizzesList();
+		}
+		cout << endl;
+	}
+	int getTotalAvailableQuizzes()
+	{
+		int sum = 0;
+		for (int i = 0; i < totalCourses; i++)
+		{
+			sum += userCourses[i]->getTotalQuiz();
+		}
+		return sum;
+	}
+
 	void printData()
 	{
 		cout << id << " " << name << " " << password << endl;
@@ -969,7 +1098,8 @@ public:
 		}
 		
 		struct tm quizTime = {};
-		time_t currentTime = time(NULL);
+		time_t currentTime;
+		time(&currentTime);
 		time_t quizTime_t = time(NULL);
 		do {
 			cout << "Please enter the date and time for the quiz (in format YYYY MM DD HH MM): ";
@@ -977,16 +1107,16 @@ public:
 			quizTime.tm_year -= 1900;
 			quizTime.tm_mon -= 1;
 			time_t quizTime_t = mktime(&quizTime);
-
+			
 			// Check if the quiz time is set in the future
 			if (quizTime_t <= currentTime) {
 				cout << "Invalid quiz time! Please enter a time in the future." << endl;
 			}
 			else {
 				// Print the quiz time to confirm
-				char buffer[26];
-				ctime_s(buffer, 26, &quizTime_t);
-				cout << "The quiz time is set as: " << buffer << endl;
+			
+			cout << "The quiz time is set as: ";
+			printTime(quizTime_t); cout<< endl;
 				break;
 			}
 		} while (true);
@@ -1024,10 +1154,133 @@ public:
 		cout << "1. Give Quiz" << endl;
 	}
 
+	bool checkAnswer(Question* question, int selected_option)
+	{
+		int correctOption = question->getCorrectOption();
+
+		if (correctOption == selected_option - 1)
+		{
+			return true;
+		}
+	}
+
+	double startQuiz(Quiz* selectedQuiz)
+	{
+		double score = 0;
+		int totalQuestions = selectedQuiz->getTotalQuestions();
+		int marks = selectedQuiz->getMarksofEachQ();
+		cout << marks;
+		for (int i = 0; i < totalQuestions; i++)
+		{
+			int ans = 0;
+			string ans_subj = "";
+
+			Question* question = selectedQuiz->getSingleQuestion(i);
+			question->printQuestionSt();
+			cout<<question->getCorrectOption()<<endl;
+			if (MCQs* mcq = dynamic_cast<MCQs*>(question))
+			{
+
+				cin >> ans;
+				while (ans > 4 || ans <= 0)
+				{
+					cout << "Invalid Input, please try again" << endl;
+					cin >> ans;
+				}
+				if (checkAnswer(mcq, ans))
+				{
+					score += marks;
+				}
+			}
+			else if (TFalse* truefalse = dynamic_cast<TFalse*>(question))
+			{
+				cin >> ans;
+				while (ans > 2 || ans <= 0)
+				{
+					cout << "Invalid Input, please try again" << endl;
+					cin >> ans;
+				}
+				if (checkAnswer(truefalse, ans))
+				{
+					score += marks;
+				}
+			}
+			else
+			{
+				cin >> ans_subj;
+				int wordCount = 0;
+				for (int i = 0; i < ans_subj.length(); i++) {
+					if (ans_subj[i] == ' ') {
+						wordCount++;
+					}
+				}
+				wordCount++; 
+				score += wordCount * 0.01;
+			}
+			
+
+		}
+		return score;
+	}
 	void giveQuiz()
 	{
+		selectCourse: int courseNo = 0;
+		printCourses();
+		cout << "Enter the no of the course you want to take a quiz in: ";
+		cin >> courseNo;
 
+		while (courseNo > totalCourses || courseNo <= 0)
+		{
+			cout << "Invalid Input, please try again" << endl;
+			cin >> courseNo;
+		}
+		Course* course = userCourses[courseNo - 1];
+		
+		int totalQuiz = course->getTotalQuiz();
+		if (totalQuiz <= 0)
+		{
+			cout << "No Quiz is Available in the following course. please select another"<<endl<<endl;
+			goto selectCourse;
+		}
+		else
+		{
+			int quizNo = 0;
+			cout << "Available Quizzes: " << endl;
+			course->printQuizzesList();
+			cout << "Enter the no of the quiz you want to give: ";
+			cin >> quizNo;
+
+			while (quizNo > totalQuiz || quizNo <= 0)
+			{
+				cout << "Invalid Input, please try again" << endl;
+				cin >> quizNo;
+			}
+
+			Quiz* selectedQuiz = course->getSpecificQuiz(quizNo);
+
+			time_t quizScheduledTime = selectedQuiz->getQuizSchedule();
+			time_t currentTime;
+			time(&currentTime);
+
+			int quizTime = selectedQuiz->getTotalTime();
+			time_t unixQuizTime = time(nullptr) + (quizTime * 60);
+
+			printTime(difftime(quizScheduledTime, currentTime));
+			cout << endl;
+			printTime(unixQuizTime);
+			if (difftime(currentTime, quizScheduledTime) < unixQuizTime)
+			{
+				
+				double score = startQuiz(selectedQuiz);
+				cout << score;
+			}
+			else {
+				cout << "Quiz is expired";
+			}
+		}
 	}
+
+
 };
 
 int Teacher::totalTeachers = 0;
@@ -1059,17 +1312,6 @@ public:
 		this->coursesList = Temp.LoadCourse(student_file);
 		int totalC = Temp.getTotalCourses();
 		Temp.LoadQuizes(coursesList, totalC);
-	
-
-
-	
-
-
-
-
-		
-
-	
 
 
 		int total = 0;
@@ -1182,7 +1424,7 @@ public:
 		string user, pass;
 		cout << "Enter Username" << endl;
 		//cin >> user;
-		user = "t46905";
+		user = "20I-0927";
 		cout << "Enter Password" << endl;
 		pass = "123456";
 		//cin >> pass;
@@ -1204,6 +1446,7 @@ public:
 				int n = 0;
 				student->printMenu(currentUser->getName());
 				cin >> n;
+
 				if (n == 1)
 				{
 					student->giveQuiz();
@@ -1223,8 +1466,8 @@ int main() {
 	srand(time(NULL));
 	System s;
 	s.loadData("teachers_list.csv", "courses_offering_list.csv");
-	/*s.generateLogins();
-	s.login();*/
+	s.generateLogins();
+	s.login();
 	/*Course Temp; 
 	Temp.LoadAllTopics("testbank10.txt");
 	Temp.printInfo();*/

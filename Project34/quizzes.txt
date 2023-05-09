@@ -38,7 +38,7 @@ option: None of the above
 
 course: CS 601
 quiz: 964ce88
-1683549822
+1689820800
 60
 40
 3
@@ -64,3 +64,36 @@ option: To reduce the dimensionality of the input data
 option dabfac4: To introduce non-linearity into the network
 
 
+course: CS 201
+quiz: 986a38d
+1683648040
+50
+60
+5
+
+b94d27b
+In Java, the "==" operator compares the memory addresses of two objects. 
+option: True
+option dabfac4: False
+
+2efcde9
+What is the output of the following code? x = [1, 2, 3] print(x[2]) 
+option: 1
+option: 2
+option dabfac4: 3
+option: None of the above
+
+b94d27b
+Python is a strongly typed language. 
+option: True
+option dabfac4: False
+
+2efcde9
+What is the difference between a while loop and a do-while loop in Java? 
+option: A while loop executes its statements at least once, whereas a do-while loop may not execute at all.
+option: A while loop only executes its statements once, whereas a do-while loop can execute multiple times.
+option: A while loop can only check for one condition, whereas a do-while loop can check for multiple conditions.
+option dabfac4: A do-while loop executes its statements at least once, whereas a while loop may not execute at all.
+
+88f7ace
+How would you explain about association?
